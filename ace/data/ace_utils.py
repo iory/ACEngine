@@ -1,7 +1,7 @@
-import platform
+import bz2
 import os
 import os.path as osp
-import bz2
+import platform
 
 import gdown
 
