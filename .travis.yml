@@ -1,0 +1,25 @@
+language: python
+
+cache:
+  - pip
+
+python:
+  - '3.7'
+  - '2.7'
+
+install:
+  - pip install --upgrade pip setuptools wheel
+  - pip install .
+  - |
+    grep -rlIP '[^\x00-\x7F]' ace | grep '\.pyx\?' | sort > unicode.out; grep -rlI '# -\*- coding: \(utf-8\|latin-1\) -\*-' ace | grep '\.pyx\?' | sort > coding.out; comm -23 unicode.out coding.out > test_code.out; cat test_code.out;  test \! -s test_code.out
+
+script:
+  - pip install hacking pytest
+  - flake8 .
+  - pytest -v tests
+
+sudo: false
+
+branches:
+  only:
+    - master
