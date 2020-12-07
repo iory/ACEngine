@@ -38,7 +38,7 @@ install_requires = []
 setup(
     name="ACEngine",
     version=version,
-    description="A python library",
+    description="A python wrapper for the Answer Constraint Engine",
     author="iory",
     author_email="ab.ioryz@gmail.com",
     url="https://github.com/iory/ACEngine",
