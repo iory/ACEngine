@@ -5,7 +5,7 @@ from ace.data import get_english_resource_grammar
 from ace.data import get_jacy_grammar
 
 
-def generate_paraphrase(text, grammar='english'):
+def generate_paraphrase(text, grammar='english', verbose=False):
     if grammar == 'english':
         grammar = get_english_resource_grammar()
     elif grammar == 'japanese' or grammar == 'jacy':
@@ -25,4 +25,7 @@ def generate_paraphrase(text, grammar='english'):
     paraphrase_list = proc.communicate()[0].decode('utf8').split('\n')
     paraphrase_list = [paraphrase for paraphrase in paraphrase_list
                        if len(paraphrase) > 0]
+    if verbose:
+        for s in proc.communicate():
+            print(s.decode('utf8'))
     return paraphrase_list
