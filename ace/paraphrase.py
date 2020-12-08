@@ -6,7 +6,7 @@ from ace.data import get_jacy_grammar
 
 
 def generate_paraphrase(text, grammar='english', verbose=False):
-    if grammar == 'english':
+    if grammar == 'english' or grammar == 'erg':
         grammar = get_english_resource_grammar()
     elif grammar == 'japanese' or grammar == 'jacy':
         grammar = get_jacy_grammar()
@@ -15,6 +15,8 @@ def generate_paraphrase(text, grammar='english', verbose=False):
     ace_binary = get_ace()
     cmd = 'echo "{}" | {} -g {} -1T 2>/dev/null | {} -g {} -e'\
         .format(text, ace_binary, grammar, ace_binary, grammar)
+    if verbose:
+        print(cmd)
     proc = subprocess.Popen(
         cmd,
         stdout=subprocess.PIPE,
@@ -22,7 +24,8 @@ def generate_paraphrase(text, grammar='english', verbose=False):
         shell=True,
     )
     proc.wait()
-    paraphrase_list = proc.communicate()[0].decode('utf8').split('\n')
+    stdout_data, _ = proc.communicate()
+    paraphrase_list = stdout_data.decode('utf8').splitlines()
     paraphrase_list = [paraphrase for paraphrase in paraphrase_list
                        if len(paraphrase) > 0]
     if verbose:
