@@ -4,11 +4,14 @@ from ace.data import get_ace
 from ace.data import get_english_resource_grammar
 
 
-def generate_paraphrase(text):
+def generate_paraphrase(text, grammar='english'):
+    if grammar == 'english':
+        grammar = get_english_resource_grammar()
+    else:
+        raise RuntimeError
     ace_binary = get_ace()
-    erg = get_english_resource_grammar()
     cmd = 'echo "{}" | {} -g {} -1T 2>/dev/null | {} -g {} -e'\
-        .format(text, ace_binary, erg, ace_binary, erg, )
+        .format(text, ace_binary, grammar, ace_binary, grammar)
     proc = subprocess.Popen(
         cmd,
         stdout=subprocess.PIPE,
