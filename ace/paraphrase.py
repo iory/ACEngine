@@ -2,11 +2,14 @@ import subprocess
 
 from ace.data import get_ace
 from ace.data import get_english_resource_grammar
+from ace.data import get_jacy_grammar
 
 
 def generate_paraphrase(text, grammar='english'):
     if grammar == 'english':
         grammar = get_english_resource_grammar()
+    elif grammar == 'japanese' or grammar == 'jacy':
+        grammar = get_jacy_grammar()
     else:
         raise RuntimeError
     ace_binary = get_ace()
