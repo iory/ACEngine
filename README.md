@@ -10,6 +10,8 @@ pip install ACEngine
 
 ## Quick Start
 
+### English Grammar Resource
+
 ```python
 from ace.paraphrase import generate_paraphrase
 text = "The quick brown fox that jumped over the lazy dog took a nap."
@@ -40,4 +42,17 @@ for paraphrase in paraphrase_list:
 # The quick brown fox who jumped over the lazy dog took a nap.
 # A nap was taken by the quick brown fox that jumped over the lazy dog.
 # A nap was taken by the quick brown fox who jumped over the lazy dog.
+```
+
+### The Jacy Japanese Grammar
+
+```python
+from ace.paraphrase import generate_paraphrase
+text = "太郎 が 次郎 に 本 を 渡し た"
+paraphrase_list = generate_paraphrase(text, grammar='jacy')
+for paraphrase in paraphrase_list:
+    print(paraphrase)
+# 太郎 が 次郎 に 本 を 渡し た
+# 次郎 に 太郎 が 本 を 渡し た
+# 次郎 に 本 を 太郎 が 渡し た
 ```
